@@ -2,157 +2,72 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Campus Event Registration</title>
+  <title>Campus Event Registration Platform</title>
   <style>
-    body {
-      font-family: "Poppins", Arial, sans-serif;
-      background-color: #f7f8fa;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    header {
-      background: linear-gradient(135deg, #0066ff, #00c2ff);
-      color: white;
-      text-align: center;
-      padding: 25px 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-    main {
-      max-width: 800px;
-      margin: 30px auto;
-      background: #fff;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      color: #0066ff;
-      border-left: 5px solid #0066ff;
-      padding-left: 10px;
-      margin-top: 40px;
-    }
-    .event-list {
-      list-style: none;
-      padding: 0;
-    }
-    .event-item {
-      background: #f3f6ff;
-      border: 1px solid #dce3ff;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      padding: 15px 20px;
-    }
-    .btn {
-      display: inline-block;
-      background-color: #0066ff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 12px;
-      font-size: 14px;
-      cursor: pointer;
-      text-decoration: none;
-      margin-top: 10px;
-      transition: background-color 0.3s;
-    }
-    .btn:hover {
-      background-color: #004bcc;
-    }
-    form {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    input, select, button {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-    button {
-      background-color: #0066ff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #004bcc;
-    }
-    .message {
-      background: #e6f3ff;
-      border: 1px solid #99ccff;
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-    }
+    body {font-family:Poppins,Arial,sans-serif;background:#f0f3f9;margin:0;padding:0;color:#333;}
+    header {background:#0056ff;color:white;padding:15px;text-align:center;}
+    main {width:90%;max-width:900px;margin:30px auto;background:white;border-radius:10px;padding:25px;box-shadow:0 3px 10px rgba(0,0,0,0.1);}
+    h2 {border-bottom:2px solid #ddd;padding-bottom:8px;margin-top:0;}
+    form {margin-bottom:20px;}
+    input,button {padding:10px;margin:5px;width:95%;border:1px solid #ccc;border-radius:6px;}
+    button {background:#0056ff;color:white;border:none;width:98%;cursor:pointer;}
+    button:hover {background:#003bb3;}
+    .event-list {list-style:none;padding:0;}
+    .event-item {background:#f8f9ff;margin:10px 0;padding:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.05);}
+    .btn {display:inline-block;padding:6px 10px;border-radius:5px;text-decoration:none;color:white;font-size:14px;margin-top:5px;}
+    .btn:hover {opacity:0.8;}
+    .btn-view {background:#0099ff;}
+    .btn-edit {background:#ffa500;}
+    .btn-delete {background:#ff4040;}
+    .message {background:#e0f2ff;border-left:5px solid #0099ff;padding:10px;margin-bottom:10px;border-radius:5px;}
   </style>
 </head>
 <body>
-
 <header>
   <h1>🎓 Campus Event Registration Platform</h1>
 </header>
 
 <main>
-  {% if messages %}
-    <div class="message">
-      {% for message in messages %}
-        <p>{{ message }}</p>
-      {% endfor %}
-    </div>
-  {% endif %}
+  {% for message in messages %}
+    <div class="message">{{ message }}</div>
+  {% endfor %}
 
-  <section>
-    <h2>📅 Daftar Event Kampus</h2>
-    <ul class="event-list">
-      {% for e in events %}
-        <li class="event-item">
-          <b>{{ e.title }}</b><br>
-          📍 {{ e.location }}<br>
-          🗓️ {{ e.date }}<br>
-          🎟️ Kuota: {{ e.quota }}<br>
-          <a class="btn" href="/participants/{{ e.id }}/">👥 Lihat Peserta</a>
-        </li>
-      {% empty %}
-        <li>Belum ada event.</li>
-      {% endfor %}
-    </ul>
-  </section>
+  <h2>🗓️ Tambah Event</h2>
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Nama Event" required><br>
+    <input type="date" name="date" required><br>
+    <input type="text" name="location" placeholder="Lokasi" required><br>
+    <input type="number" name="quota" placeholder="Kuota Peserta" required><br>
+    <input type="password" name="admin_pass" placeholder="Password Admin" required><br>
+    <button type="submit" name="add_event">Tambah Event</button>
+  </form>
 
-  <section>
-    <h2>🆕 Tambah Event Baru</h2>
-    <form method="post">
-      {% csrf_token %}
-      <input type="hidden" name="add_event" value="1">
-      <input type="text" name="title" placeholder="Judul Event" required>
-      <input type="date" name="date" required>
-      <input type="text" name="location" placeholder="Lokasi" required>
-      <input type="number" name="quota" placeholder="Kuota Peserta" required>
-      <button type="submit">Tambah Event</button>
-    </form>
-  </section>
+  <h2>📋 Daftar Event</h2>
+  <ul class="event-list">
+    {% for e in events %}
+      <li class="event-item">
+        <b>{{ e.title }}</b><br>
+        📍 {{ e.location }}<br>
+        🗓️ {{ e.date }}<br>
+        🎟️ Kuota: {{ e.quota }}<br><br>
+        <a href="/participants/{{ e.id }}/" class="btn btn-view">👥 Lihat Peserta</a>
+        <a href="/edit/{{ e.id }}/" class="btn btn-edit">✏️ Edit</a>
+        <a href="/delete/{{ e.id }}/" class="btn btn-delete">🗑️ Hapus</a>
+      </li>
+    {% empty %}
+      <li>Tidak ada event.</li>
+    {% endfor %}
+  </ul>
 
-  <section>
-    <h2>📝 Form Pendaftaran Peserta</h2>
-    <form method="post" action="/register/">
-      {% csrf_token %}
-      <input type="hidden" name="register_participant" value="1">
-      <input type="text" name="name" placeholder="Nama Lengkap" required>
-      <input type="email" name="email" placeholder="Alamat Email" required>
-
-      <select name="event_name" required>
-        <option value="">-- Pilih Event --</option>
-        {% for e in events %}
-          <option value="{{ e.title }}">{{ e.title }}</option>
-        {% endfor %}
-      </select>
-
-      <button type="submit">Daftar Sekarang</button>
-    </form>
-  </section>
+  <h2>🧍‍♂️ Daftar Peserta</h2>
+  <form method="post" action="/register/">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Nama Peserta" required><br>
+    <input type="email" name="email" placeholder="Email Peserta" required><br>
+    <input type="text" name="event_name" placeholder="Nama Event yang Dituju" required><br>
+    <button type="submit" name="register_participant">Daftar</button>
+  </form>
 </main>
-
 </body>
 </html>

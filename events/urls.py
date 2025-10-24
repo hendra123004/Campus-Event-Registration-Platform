@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('register/', views.register, name='register'),
     path('participants/', views.participants, name='participants'),
-    path('participants/<int:event_id>/', views.participants, name='participants_by_event'),  # <— ini penting
+    path('participants/<int:event_id>/', views.participants, name='participants_by_event'),
+    path('edit/<int:event_id>/', views.edit_event, name='edit_event'),
+    path('delete/<int:event_id>/', views.delete_event, name='delete_event'),
 ]
-
