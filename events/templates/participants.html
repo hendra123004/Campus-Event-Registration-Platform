@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Peserta Event</title>
+  <style>
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background-color: #f7f8fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #0066ff, #00c2ff);
+      color: white;
+      text-align: center;
+      padding: 25px 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #0066ff;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f6ff;
+    }
+    a {
+      display: inline-block;
+      margin-top: 15px;
+      color: #0066ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📋 Daftar Peserta Event Kampus</h1>
+</header>
+
+<main>
+  {% if participants %}
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama Peserta</th>
+        <th>Email</th>
+        <th>Event</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in participants %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.email }}</td>
+        <td>{{ p.event.title }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>Tidak ada peserta yang terdaftar.</p>
+  {% endif %}
+
+  <a href="/">⬅️ Kembali ke Halaman Utama</a>
+</main>
+
+</body>
+</html>
