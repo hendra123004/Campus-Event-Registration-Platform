@@ -46,15 +46,15 @@ Pengguna dapat:
 ## 🚀 Cara Menjalankan Aplikasi
 1. Clone repository:
    ```bash
-   git clone https://github.com/[username]/Campus_Event_Registration_Platform-[namamu].git
-   cd Campus_Event_Registration_Platform-[namamu]
+   git clone https://github.com/hendra123004/interoperability-final-hendra-maulana.git
+   cd interoperability-final-hendra-maulana
    pip install -r requirements.txt
    python manage.py migrate
    python manage.py runserver
    http://127.0.0.1:8000/
 
 ##Daftar Endpoint
-/GET	   Lihat daftar event
-/register/	POST	   Pendaftaran peserta
-/participants/	GET	Lihat semua peserta
-/participants/<event_id>/	GET	Lihat peserta per event
+   /GET	   Lihat daftar event
+   /register/	POST	   Pendaftaran peserta
+   /participants/	GET	Lihat semua peserta
+   /participants/<event_id>/	GET	Lihat peserta per event
