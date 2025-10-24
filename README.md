@@ -52,3 +52,9 @@ Pengguna dapat:
    python manage.py migrate
    python manage.py runserver
    http://127.0.0.1:8000/
+
+##Daftar Endpoint
+/GET	   Lihat daftar event
+/register/	POST	   Pendaftaran peserta
+/participants/	GET	Lihat semua peserta
+/participants/<event_id>/	GET	Lihat peserta per event
